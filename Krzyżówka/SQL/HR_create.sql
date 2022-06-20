@@ -1,0 +1,4 @@
+CREATE TABLE words (
+	word_id IDENTITY PRIMARY KEY,
+	word_name CHARACTER VARYING (25)
+);
