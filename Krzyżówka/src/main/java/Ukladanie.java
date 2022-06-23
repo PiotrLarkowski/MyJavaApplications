@@ -99,7 +99,7 @@ public class Ukladanie extends Thread implements Runnable {
             boolean restart;
             boolean isWordAdded = false;
             int myLookingWordLength = 0;
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < 9; i++) {
                 restart = false;
                 wordVariable = wordsVariable.fullListOfWords.get(KrzyzowkaRysowanie.mainOrderFindingTheWords[i]);//Numer nastepnego slowa do wyszukiwania
                 if (wordVariable.get(0) == 13) { // Sprawdzanie dluygosci poszukwianego slowa musi ono pasowac do listaListSlow posiadajaca posegregowane slowa po dlugosci
@@ -162,7 +162,7 @@ public class Ukladanie extends Thread implements Runnable {
             for (int i = 0; i < wybraneSlowaDoKrzyzowki.length; i++) {
                 if(wybraneSlowaDoKrzyzowki[i]!=null) {
                     KrzyzowkaRysowanie.Słówka[i]=wybraneSlowaDoKrzyzowki[i];
-                    KrzyzowkaRysowanie.taPoleSlow.setText(KrzyzowkaRysowanie.taPoleSlow.getText() + "Słowo [" + i + "] - " + wybraneSlowaDoKrzyzowki[i] + "\n");
+                    KrzyzowkaRysowanie.taPoleSlow.setText(KrzyzowkaRysowanie.taPoleSlow.getText() + "Słowo [" + (i+1) + "] - " + wybraneSlowaDoKrzyzowki[i] + "\n");
                 }
             }
         }
@@ -259,12 +259,16 @@ class POJOArrayList {
         fullListOfWords.add(word6);
         // --------------------------------------------------------------
         ArrayList<Integer> word7 = new ArrayList<>();
+        word7.addAll(new ArrayList<>(Arrays.asList(4, 4, 1, 7, 0, 6, 8, 5, 1, 0, 4, 7, 2, 6, 9, 5, 3, 0)));
         fullListOfWords.add(word7);
         ArrayList<Integer> word8 = new ArrayList<>();
+        word8.addAll(new ArrayList<>(Arrays.asList(5, 3, 7, 4, 0, 1, 10, 4, 2, 1, 11, 13, 4, 1)));
         fullListOfWords.add(word8);
         ArrayList<Integer> word9 = new ArrayList<>();
+        word9.addAll(new ArrayList<>(Arrays.asList(5, 4, 7, 4, 0, 3, 21, 7, 1, 0, 10, 4, 2, 3, 11, 13, 4, 3)));
         fullListOfWords.add(word9);
         ArrayList<Integer> word10 = new ArrayList<>();
+        word10.addAll(new ArrayList<>(Arrays.asList()));
         fullListOfWords.add(word10);
         // --------------------------------------------------------------
         fullListOfWords.add(new ArrayList<Integer>());

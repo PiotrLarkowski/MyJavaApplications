@@ -1455,9 +1455,9 @@ public class KrzyzowkaRysowanie extends JFrame implements ActionListener {
         literka78.setText(Słówka[24].substring(1, 2));
         literka79.setText(Słówka[26].substring(1, 2));
         literka80.setText(Słówka[10].substring(0, 1));
-        literka81.setText(Słówka[10].substring(1, 2));
+        literka81.setText(Słówka[7].substring(2, 3));
         literka82.setText(Słówka[10].substring(2, 3));
-        literka83.setText(Słówka[10].substring(3, 4));
+        literka83.setText(Słówka[8].substring(2, 3));
         literka84.setText(Słówka[21].substring(3, 4));
         literka85.setText(Słówka[23].substring(3, 4));
         literka86.setText(Słówka[24].substring(2, 3));
@@ -1471,9 +1471,9 @@ public class KrzyzowkaRysowanie extends JFrame implements ActionListener {
         literka94.setText(Słówka[24].substring(3, 4));
         literka95.setText(Słówka[26].substring(3, 4));
         literka96.setText(Słówka[9].substring(0, 1));
-        literka97.setText(Słówka[9].substring(1, 2));
+        literka97.setText(Słówka[7].substring(4, 5));
         literka98.setText(Słówka[9].substring(2, 3));
-        literka99.setText(Słówka[9].substring(3, 4));
+        literka99.setText(Słówka[8].substring(4, 5));
         literka100.setText(Słówka[9].substring(4, 5));
         literka101.setText(Słówka[9].substring(5, 6));
         literka102.setText(Słówka[9].substring(6, 7));
