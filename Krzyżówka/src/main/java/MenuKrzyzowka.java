@@ -10,6 +10,7 @@ import javax.swing.*;
 
 public class MenuKrzyzowka extends JFrame implements ActionListener {
 
+    public static KrzyzowkaRysowanie okienko = null;
     public static String[] Słówka = new String[100];
 
     public JButton bWyjście, bNowaKrzyzowka, bUzupelnianieKrzyzowki;
@@ -85,7 +86,7 @@ public class MenuKrzyzowka extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object źródło = e.getSource();
         if (źródło == bUzupelnianieKrzyzowki) {
-            KrzyzowkaRysowanie okienko = new KrzyzowkaRysowanie(Słówka, false, 0, false);
+            okienko = new KrzyzowkaRysowanie(Słówka, 0, false);
             okienko.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             okienko.setLocationRelativeTo(null);
             okienko.setUndecorated(true);

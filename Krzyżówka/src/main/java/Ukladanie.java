@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -113,6 +114,7 @@ public class Ukladanie extends Thread implements Runnable {
                         for (int k = 0; k < wybraneSlowaDoKrzyzowki.length; k++) {
                             wybraneSlowaDoKrzyzowki[k]=null;
                         }
+                        KrzyzowkaRysowanie.taPoleSlow.setText("");
                         break;
                     }
                     lengthOfLookingWord = j + 2 + (j * 3);//2, 6, 10 dlugosc slow jakie musza pasowac do wybranego slowa
@@ -121,18 +123,22 @@ public class Ukladanie extends Thread implements Runnable {
                         wordPassTest = true; // Jezeli nie to wylosowane slowo pasuje do krzyzowki
                     } else {
                         do {//Jezeli tak to sprawdzamy czy rozpatrywane slowo pasuje iterami do juz wylosowanych
-                            if (wybraneSlowaDoKrzyzowki[numberOfChoiceWords].charAt(wordsVariable.fullListOfWords.get(i).get(5+(j*4))) == wybraneSlowo.charAt(wordsVariable.fullListOfWords.get(i).get(4+(j*4)))) {
+                            String word = wybraneSlowaDoKrzyzowki[numberOfChoiceWords];
+                            int charat = wordsVariable.fullListOfWords.get(i).get(5+(j*4));
+                            char a = word.charAt(charat);
+                            char b = wybraneSlowo.charAt(wordsVariable.fullListOfWords.get(i).get(4+(j*4)));
+                            if (a == b) {
                                 wordPassTest = true;// Jezeli pasuje to ustawiamy ze slowo pasuje
-                                KrzyzowkaRysowanie.taPoleSlow.setText(KrzyzowkaRysowanie.taPoleSlow.getText() + "Słowo ["+i+"] - " + wybraneSlowo + " znaleziono w " + hour + ":" + min + ":0" + sec + "\n");
+//                                KrzyzowkaRysowanie.taPoleSlow.setText(KrzyzowkaRysowanie.taPoleSlow.getText() + "Słowo ["+i+"] - " + wybraneSlowo + " znaleziono w " + hour + ":" + min + ":0" + sec + "\n");
                                 wybraneSlowaDoKrzyzowki[i]=wybraneSlowo;
                             }else{
-                                j=0;
+                                j=-1;
                                 listaListSlow[myLookingWordLength].remove(wybraneSlowo);//Jezeli nie pasuje to usuwamy slowo by nie zostalo wylosowane ponownie
                                 if(listaListSlow[myLookingWordLength].size()==0){ //Jezeli usunelismy juz wszystkie slowa to oznacza ze nie ma dopasowania
 //                                    JOptionPane.showMessageDialog(null,"Nie znaleziono dopasowania!");
-                                    KrzyzowkaRysowanie.taPoleSlow.setText("");//Zerujemy ilosc wylosowanych slow
+//                                    KrzyzowkaRysowanie.taPoleSlow.setText("");//Zerujemy ilosc wylosowanych slow
                                     i = -1;
-                                    j = 0;
+                                    j = -1;
                                     restart = true;
                                     NumerWykonania++;
                                     UzupelnianieDlugosciSLow(listaWszystkichSlow);
@@ -148,13 +154,20 @@ public class Ukladanie extends Thread implements Runnable {
                     }
                 }
                 if(wordPassTest && isWordAdded == false){//Wypisujeny w taPoleSlow wszystkie wybrane slowa
-                    KrzyzowkaRysowanie.taPoleSlow.setText(KrzyzowkaRysowanie.taPoleSlow.getText() + "Słowo ["+i+"] - " + wybraneSlowo + " znaleziono w " + hour + ":" + min + ":0" + sec + "\n");
+//                    KrzyzowkaRysowanie.taPoleSlow.setText(KrzyzowkaRysowanie.taPoleSlow.getText() + "Słowo ["+i+"] - " + wybraneSlowo + " znaleziono w " + hour + ":" + min + ":0" + sec + "\n");
                     wybraneSlowaDoKrzyzowki[i]=wybraneSlowo;
                 }
                 isWordAdded = false;
             }
+            for (int i = 0; i < wybraneSlowaDoKrzyzowki.length; i++) {
+                if(wybraneSlowaDoKrzyzowki[i]!=null) {
+                    KrzyzowkaRysowanie.Słówka[i]=wybraneSlowaDoKrzyzowki[i];
+                    KrzyzowkaRysowanie.taPoleSlow.setText(KrzyzowkaRysowanie.taPoleSlow.getText() + "Słowo [" + i + "] - " + wybraneSlowaDoKrzyzowki[i] + "\n");
+                }
+            }
         }
     }
+
 }
 
 class POJOArrayList {
@@ -239,10 +252,10 @@ class POJOArrayList {
                 2/*Pozycja litery w slowie pasujacym ktore musi pasowac*/)));
         fullListOfWords.add(word4);
         ArrayList<Integer> word5 = new ArrayList<>();
-        word5.addAll(new ArrayList<>(Arrays.asList(5, 3, 1, 7, 1, 5, 4, 7, 3, 5, 6, 6, 5, 5)));
+        word5.addAll(new ArrayList<>(Arrays.asList(5, 3, 1, 7, 0, 4, 4, 7, 2, 4, 6, 6, 4, 4)));
         fullListOfWords.add(word5);
         ArrayList<Integer> word6 = new ArrayList<>();
-        word6.addAll(new ArrayList<>(Arrays.asList(6, 3, 2, 5, 1, 5, 3, 5, 3, 5, 5, 5, 5, 5)));
+        word6.addAll(new ArrayList<>(Arrays.asList(6, 3, 2, 5, 0, 4, 3, 5, 2, 4, 5, 5, 4, 4)));
         fullListOfWords.add(word6);
         // --------------------------------------------------------------
         ArrayList<Integer> word7 = new ArrayList<>();
