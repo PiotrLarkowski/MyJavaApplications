@@ -33,3 +33,4 @@ INSERT INTO words(word_id,word_name) VALUES (32,'BABKA');
 INSERT INTO words(word_id,word_name) VALUES (33,'SUAZI');
 INSERT INTO words(word_id,word_name) VALUES (34,'ODBLASK');
 INSERT INTO words(word_id,word_name) VALUES (35,'DIALIZA');
+INSERT INTO words(word_id,word_name) VALUES (36,'DOTYK');
