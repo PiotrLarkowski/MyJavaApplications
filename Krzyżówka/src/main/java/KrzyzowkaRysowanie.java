@@ -155,7 +155,7 @@ public class KrzyzowkaRysowanie extends JFrame implements ActionListener {
         add(bWyjście);
         bWyjście.addActionListener(this);
 
-        bStart = new JButton("Start");
+        bStart = new JButton("Rysuj Krzyzowke");
         bStart.setBounds(1000, 480, 100, 20);
         add(bStart);
 //		bStart.setEnabled(false);
@@ -1516,11 +1516,16 @@ public class KrzyzowkaRysowanie extends JFrame implements ActionListener {
         literka133.setText(Słówka[14].substring(6, 7));
         literka134.setText(Słówka[17].substring(6, 7));
     }
+
+    public static void stopThread(){
+        ukladanieKrzyzowki.stop();
+    }
+
     public void actionPerformed(ActionEvent e) {
         Object źródło = e.getSource();
         if (źródło == bStart) {
             setWordNumberLabel();
-            bStart.setEnabled(false);
+//            bStart.setEnabled(false);
             Rysowanie();
 
             lWIadomosc1.setText("Włącz przycisk");
@@ -1538,7 +1543,7 @@ public class KrzyzowkaRysowanie extends JFrame implements ActionListener {
             okienkoMenu.setUndecorated(true);
             okienkoMenu.setVisible(true);
         } else if (źródło == bCalosc) {
-//            ukladanieKrzyzowki.start();
+            ukladanieKrzyzowki.start();
             ukladanieKrzyzowki2.start();
         } else if(źródło == bOdswiez) {
             fillLetters();

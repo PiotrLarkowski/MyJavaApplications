@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class Ukladanie extends Thread implements Runnable {
 
+    public static boolean koniec = false;
     Random rand = new Random();
     public static ArrayList<Integer> wordVariable;
     int[] wordsTab = new int[20];
@@ -28,6 +29,12 @@ public class Ukladanie extends Thread implements Runnable {
 //    public static List<String> listaWszystkichSlow = new ArrayList<>();
 
     public static void UzupelnianieDlugosciSLow(List<String> listaWszystkichSlow) {
+        listaWszystkichSlow3 = new ArrayList<>();
+        listaWszystkichSlow4 = new ArrayList<>();
+        listaWszystkichSlow5 = new ArrayList<>();
+        listaWszystkichSlow6 = new ArrayList<>();
+        listaWszystkichSlow7 = new ArrayList<>();
+        listaWszystkichSlow13 = new ArrayList<>();
         for (int i = 0; i < listaWszystkichSlow.size(); i++) {
             if (listaWszystkichSlow.get(i).length() == 3) {
                 listaWszystkichSlow3.add(listaWszystkichSlow.get(i));
@@ -60,33 +67,37 @@ public class Ukladanie extends Thread implements Runnable {
     public void run() {
         if (numberOfThread == 1) {
             KrzyzowkaRysowanie.lWIadomosc1.setText("");
-//        Thread Thread1 = new Thread();
-//            for (int i = 0; ; i++) {
-//                if (sec < 10) {
-//                    KrzyzowkaRysowanie.lWIadomosc2.setText("Czas wykonywania: " + hour + ":" + min + ":0" + sec);
-//                } else {
-//                    KrzyzowkaRysowanie.lWIadomosc2.setText("Czas wykonywania: " + hour + ":" + min + ":" + sec);
-//                }
-//                KrzyzowkaRysowanie.lWIadomosc3.setText("                           Próba numer: " + NumerWykonania);
-//
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                if (sec == 59) {
-//                    sec = 00;
-//                    if (min == 59) {
-//                        min = 0;
-//                        hour++;
-//                    } else {
-//                        min++;
-//                    }
-//                } else {
-//                    sec++;
-//                }
-//            }
+        Thread Thread1 = new Thread();
+            for (int i = 0; ; i++) {
+
+                if (sec < 10) {
+                    KrzyzowkaRysowanie.lWIadomosc2.setText("Czas wykonywania: " + hour + ":" + min + ":0" + sec);
+                } else {
+                    KrzyzowkaRysowanie.lWIadomosc2.setText("Czas wykonywania: " + hour + ":" + min + ":" + sec);
+                }
+                KrzyzowkaRysowanie.lWIadomosc3.setText("Rozpoczeto uzupelnianie krzyzowki");
+
+                try {
+                    if(koniec){
+                        KrzyzowkaRysowanie.stopThread();
+                    }
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                if (sec == 59) {
+                    sec = 00;
+                    if (min == 59) {
+                        min = 0;
+                        hour++;
+                    } else {
+                        min++;
+                    }
+                } else {
+                    sec++;
+                }
+            }
         } else if (numberOfThread == 2) {
             for (int i = 0; i < listaWszystkichSlow.size(); i++) {
                 wordsTab[listaWszystkichSlow.get(i).length()]++;
@@ -99,7 +110,7 @@ public class Ukladanie extends Thread implements Runnable {
             boolean restart;
             boolean isWordAdded = false;
             int myLookingWordLength = 0;
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 37; i++) {
                 restart = false;
                 wordVariable = wordsVariable.fullListOfWords.get(KrzyzowkaRysowanie.mainOrderFindingTheWords[i]);//Numer nastepnego slowa do wyszukiwania
                 if (wordVariable.get(0) == 13) { // Sprawdzanie dluygosci poszukwianego slowa musi ono pasowac do listaListSlow posiadajaca posegregowane slowa po dlugosci
@@ -109,12 +120,15 @@ public class Ukladanie extends Thread implements Runnable {
                 }
                 myLookingWordLength = lengthOfLookingWord;
                 wybraneSlowo = listaListSlow[lengthOfLookingWord].get(rand.nextInt(listaListSlow[lengthOfLookingWord].size()));//Losowanie slowa pasujacego
+//                if(i==31){
+//                    wybraneSlowo = "DIALIZA";
+//                }
                 for (int j = 0; j < wordVariable.get(1); j++) { // Petla przez ilosc slow pasujacych do naszego slowa
                     if(restart){ // Jezeli nie znaleziono dopasowaia kasujemy wszystkie wybrane slowa i przerywamy
                         for (int k = 0; k < wybraneSlowaDoKrzyzowki.length; k++) {
                             wybraneSlowaDoKrzyzowki[k]=null;
                         }
-                        KrzyzowkaRysowanie.taPoleSlow.setText("");
+//                        KrzyzowkaRysowanie.taPoleSlow.setText("");
                         break;
                     }
                     lengthOfLookingWord = j + 2 + (j * 3);//2, 6, 10 dlugosc slow jakie musza pasowac do wybranego slowa
@@ -140,9 +154,9 @@ public class Ukladanie extends Thread implements Runnable {
                                     i = -1;
                                     j = -1;
                                     restart = true;
-                                    NumerWykonania++;
+//                                    NumerWykonania++;
                                     UzupelnianieDlugosciSLow(listaWszystkichSlow);
-                                    KrzyzowkaRysowanie.lWIadomosc3.setText("                           Próba numer: " + NumerWykonania);
+//                                    KrzyzowkaRysowanie.lWIadomosc3.setText("                           Próba numer: " + NumerWykonania);
                                 }
                                 if(listaListSlow[myLookingWordLength].size()!=0) {
                                     wybraneSlowo = listaListSlow[myLookingWordLength].get(rand.nextInt(listaListSlow[myLookingWordLength].size()));
@@ -165,6 +179,7 @@ public class Ukladanie extends Thread implements Runnable {
                     KrzyzowkaRysowanie.taPoleSlow.setText(KrzyzowkaRysowanie.taPoleSlow.getText() + "Słowo [" + (i+1) + "] - " + wybraneSlowaDoKrzyzowki[i] + "\n");
                 }
             }
+            koniec = true;
         }
     }
 
@@ -302,22 +317,57 @@ class POJOArrayList {
         word20.addAll(new ArrayList<>(Arrays.asList(3, 2, 15, 7, 0, 5, 18, 7, 2, 5)));
         fullListOfWords.add(word20);
         // --------------------------------------------------------------
-        fullListOfWords.add(new ArrayList<Integer>());
-        fullListOfWords.add(new ArrayList<Integer>());
-        fullListOfWords.add(new ArrayList<Integer>());
-        fullListOfWords.add(new ArrayList<Integer>());
-        fullListOfWords.add(new ArrayList<Integer>());
-        fullListOfWords.add(new ArrayList<Integer>());
-        fullListOfWords.add(new ArrayList<Integer>());
-        fullListOfWords.add(new ArrayList<Integer>());
-        fullListOfWords.add(new ArrayList<Integer>());
+        ArrayList<Integer> word21 = new ArrayList<>();
+        word21.addAll(new ArrayList<>(Arrays.asList(7, 4, 9, 5, 0, 1, 26, 6, 2, 2, 27, 6, 4, 2, 35, 5, 6, 1)));
+        fullListOfWords.add(word21);
+        ArrayList<Integer> word22 = new ArrayList<>();
+        word22.addAll(new ArrayList<>(Arrays.asList(5, 3, 6, 6, 0, 1, 23, 6, 2, 1, 28, 6, 4, 1)));
+        fullListOfWords.add(word22);
+        ArrayList<Integer> word23 = new ArrayList<>();
+        word23.addAll(new ArrayList<>(Arrays.asList(6, 3, 22, 5, 1, 2, 24, 5, 3, 2, 25, 5, 5, 2)));
+        fullListOfWords.add(word23);
+        ArrayList<Integer> word24 = new ArrayList<>();
+        word24.addAll(new ArrayList<>(Arrays.asList(5, 3, 6, 6, 0, 3, 23, 6, 2, 3, 28, 6, 4, 3)));
+        fullListOfWords.add(word24);
+        ArrayList<Integer> word25 = new ArrayList<>();
+        word25.addAll(new ArrayList<>(Arrays.asList(5, 5, 6, 0, 5, 26, 6, 1, 0, 23, 6, 2, 5, 27, 6, 3, 0, 28, 6, 4, 5)));
+        fullListOfWords.add(word25);
+        ArrayList<Integer> word26 = new ArrayList<>();
+        word26.addAll(new ArrayList<>(Arrays.asList(6, 3, 25, 5, 0, 1, 21, 7, 2, 2, 11, 13, 5, 5)));
+        fullListOfWords.add(word26);
+        ArrayList<Integer> word27 = new ArrayList<>();
+        word27.addAll(new ArrayList<>(Arrays.asList(6, 3, 25, 5, 0, 3, 21, 7, 2, 4, 11, 13, 5, 7)));
+        fullListOfWords.add(word27);
+        ArrayList<Integer> word28 = new ArrayList<>();
+        word28.addAll(new ArrayList<>(Arrays.asList(6, 6, 29, 0, 0, 22, 5, 1, 4, 31, 5, 2, 0, 24, 5, 3, 4, 33, 5, 4, 0, 25, 5, 5, 4)));
+        fullListOfWords.add(word28);
+        ArrayList<Integer> word29 = new ArrayList<>();
+        word29.addAll(new ArrayList<>(Arrays.asList(5, 3, 28, 6, 0, 0, 30, 7, 2, 0, 32, 7, 4, 0)));
+        fullListOfWords.add(word29);
         // --------------------------------------------------------------
-        fullListOfWords.add(new ArrayList<Integer>());
-        fullListOfWords.add(new ArrayList<Integer>());
-        fullListOfWords.add(new ArrayList<Integer>());
-        fullListOfWords.add(new ArrayList<Integer>());
-        fullListOfWords.add(new ArrayList<Integer>());
-        fullListOfWords.add(new ArrayList<Integer>());
-        fullListOfWords.add(new ArrayList<Integer>());
+        ArrayList<Integer> word30 = new ArrayList<>();
+        word30.addAll(new ArrayList<>(Arrays.asList(7, 4, 29, 5, 0, 2, 31, 5, 2, 2, 33, 5, 4, 2, 34, 4, 6, 1)));
+        fullListOfWords.add(word30);
+        ArrayList<Integer> word31 = new ArrayList<>();
+        word31.addAll(new ArrayList<>(Arrays.asList(5, 3, 28, 6, 0, 2, 30, 7, 2, 2, 32, 7, 4, 2)));
+        fullListOfWords.add(word31);
+        ArrayList<Integer> word32 = new ArrayList<>();
+        word32.addAll(new ArrayList<>(Arrays.asList(7, 4, 28, 5, 0, 4, 31, 5, 2, 4, 33, 5, 4, 4, 34, 4, 6, 3)));
+        fullListOfWords.add(word32);
+        ArrayList<Integer> word33 = new ArrayList<>();
+        word33.addAll(new ArrayList<>(Arrays.asList(5, 3, 28, 6, 0, 4, 30, 7, 2, 4, 32, 7, 4, 4)));
+        fullListOfWords.add(word33);
+        ArrayList<Integer> word34 = new ArrayList<>();
+        word34.addAll(new ArrayList<>(Arrays.asList(4, 4, 35, 5, 0, 0, 30, 7, 1, 6, 37, 5, 2, 0, 32, 7, 3, 6)));
+        fullListOfWords.add(word34);
+        ArrayList<Integer> word35 = new ArrayList<>();
+        word35.addAll(new ArrayList<>(Arrays.asList(5, 4, 34, 4, 0, 0, 21, 7, 1, 6, 36, 4, 2, 0, 11, 13, 4, 9)));
+        fullListOfWords.add(word35);
+        ArrayList<Integer> word36 = new ArrayList<>();
+        word36.addAll(new ArrayList<>(Arrays.asList(4, 2, 35, 5, 0, 2, 37, 5, 2, 2)));
+        fullListOfWords.add(word36);
+        ArrayList<Integer> word37 = new ArrayList<>();
+        word37.addAll(new ArrayList<>(Arrays.asList(5, 3, 34, 4, 0, 2, 36, 4, 2, 2, 11, 13, 4, 11)));
+        fullListOfWords.add(word37);
     }
 }
